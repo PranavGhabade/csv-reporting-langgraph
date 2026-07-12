@@ -4,21 +4,15 @@ import streamlit as st
 from graph import graph
 from state import GraphState
 
-
-# ==========================================================
 # Page Configuration
-# ==========================================================
-
 st.set_page_config(
     page_title="AI CSV Reporting System",
     page_icon="📊",
     layout="wide"
 )
 
-# ==========================================================
-# Header
-# ==========================================================
 
+# Header
 st.title("📊 AI CSV Reporting System")
 
 st.markdown(
@@ -28,10 +22,8 @@ using **LangGraph, Google Gemini, Pandas and Matplotlib**.
 """
 )
 
-# ==========================================================
-# Metrics
-# ==========================================================
 
+# Metrics
 col1, col2, col3, col4 = st.columns(4)
 
 with col1:
@@ -48,10 +40,8 @@ with col4:
 
 st.divider()
 
-# ==========================================================
-# Sidebar
-# ==========================================================
 
+# Sidebar
 with st.sidebar:
 
     st.header("Workflow")
@@ -77,19 +67,15 @@ automatic report.
 """
     )
 
-# ==========================================================
-# Upload CSV
-# ==========================================================
 
+# Upload CSV
 uploaded_file = st.file_uploader(
     "📁 Upload CSV File",
     type=["csv"]
 )
 
-# ==========================================================
-# User Prompt
-# ==========================================================
 
+# User Prompt
 user_prompt = st.text_area(
 
     "Analysis Instructions (Optional)",
@@ -112,10 +98,8 @@ Examples
 
 )
 
-# ==========================================================
-# Generate Button
-# ==========================================================
 
+# Generate Button
 if st.button("🚀 Generate Report", use_container_width=True):
 
     if uploaded_file is None:
@@ -180,10 +164,8 @@ Provide useful recommendations.
 
         st.divider()
 
-        # ==================================================
+        
         # Tabs
-        # ==================================================
-
         tab1, tab2 = st.tabs(
 
             [
@@ -196,10 +178,8 @@ Provide useful recommendations.
 
         )
 
-        # ==================================================
+        
         # Visualization
-        # ==================================================
-
         with tab1:
 
             if result.get("chart_path"):
@@ -218,10 +198,8 @@ Provide useful recommendations.
 
                 st.info("No visualization generated.")
 
-        # ==================================================
-        # Report
-        # ==================================================
 
+        # Report
         with tab2:
 
             st.markdown(result["report_markdown"])

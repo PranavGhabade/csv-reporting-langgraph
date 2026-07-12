@@ -11,7 +11,6 @@ def profiler_node(state: GraphState):
     # Load CSV
     df = load_csv(state["csv_path"])
 
-    # Detect datetime columns
     for column in df.select_dtypes(include=["object"]).columns:
 
         try:
@@ -21,14 +20,12 @@ def profiler_node(state: GraphState):
                 errors="coerce"
             )
 
-            # Convert only if at least 80% of the values are valid dates
             if converted.notna().sum() >= len(df) * 0.8:
                 df[column] = converted
 
         except Exception:
             pass
 
-    # Group columns by datatype
     column_groups = {
 
         "numerical":
@@ -45,7 +42,6 @@ def profiler_node(state: GraphState):
 
     }
 
-    # Data quality metrics
     missing_values = df.isnull().sum().to_dict()
 
     missing_percentage = (
@@ -65,7 +61,6 @@ def profiler_node(state: GraphState):
         .to_dict(orient="records")
     )
 
-    # Build profile
     profile = {
 
         "dataset_info": {
