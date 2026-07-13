@@ -17,3 +17,5 @@ class GraphState(TypedDict):
     analysis_results: dict
 
     report_markdown: str
+
+    pdf_path: str

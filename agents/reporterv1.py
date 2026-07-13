@@ -4,8 +4,6 @@ import os
 from llm import llm
 from state import GraphState
 from prompts.reporter_prompt import REPORTER_PROMPT
-from utils.pdf_generator import create_pdf
-
 
 def reporter_node(state: GraphState):
 
@@ -33,26 +31,24 @@ def reporter_node(state: GraphState):
 
     report = response.content[0]["text"]
 
+    if state.get("chart_path"):
+
+        report += f"\n\n## Visualization\n\n![Chart]({state['chart_path']})\n"
+
     os.makedirs("reports", exist_ok=True)
 
-    pdf_path = "reports/report.pdf"
+    with open(
+        "reports/report.md",
+        "w",
+        encoding="utf-8"
+    ) as file:
 
-    create_pdf(
+        file.write(report)
 
-        output_path=pdf_path,
-
-        report_text=report,
-
-        chart_path=state.get("chart_path", "")
-
-    )
-
-    print(f"PDF Report Saved: {pdf_path}")
+    print("Report Saved: reports/report.md")
 
     return {
 
-        "report_markdown": report,
-
-        "pdf_path": pdf_path
+        "report_markdown": report
 
     }
