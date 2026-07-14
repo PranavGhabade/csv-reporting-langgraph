@@ -78,7 +78,7 @@ def create_pdf(
 
         output_path,
 
-        topMargin=0.35 * inch,
+        topMargin=0.15 * inch,
         bottomMargin=0.7 * inch,
         leftMargin=0.6 * inch,
         rightMargin=0.6 * inch
@@ -97,8 +97,8 @@ def create_pdf(
 
             logo_path,
 
-            width=0.8 * inch,
-            height=0.8 * inch
+            width=0.6 * inch,
+            height=0.6 * inch
 
         )
 
